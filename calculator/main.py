@@ -1,12 +1,35 @@
 #assumes python3.
-from msedge.selenium_tools import Edge, EdgeOptions
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+import subprocess
+import socket
+from time import sleep
+
+
+def check_port(port, host="127.0.0.1"):
+    """
+    Return True if we can't connect
+    False if we can't connect
+
+    :param port:
+    :param host:
+    :return:
+    """
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    result = 1
+    try:
+        result = sock.connect_ex((host, port))
+    except (socket.gaierror, socket.timeout, socket.herror):
+        return True
+    finally:
+        sock.close()
+    return result != 0
+
 
 def main():
-    driver = webdriver.Edge(executable_path=r'./edgedriver/msedgedriver.exe')
-    driver.get("http://localhost:3000/calculator")
-    elem = driver.find_element_by_name("q")
+    args = ["npm.cmd","start","run"]
+    proc = subprocess.Popen(args, stderr=subprocess.STDOUT)
+    while check_port(3000):
+        sleep(1)
+    proc.kill()
 
 if __name__ == "__main__":
     main()

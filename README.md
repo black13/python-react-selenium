@@ -20,3 +20,17 @@ https://stackoverflow.com/questions/49828493/upgrading-react-version-and-its-dep
 python setup: create a virtual environment.
 
 pip.exe install selenium
+
+
+notes:
+how to check if npm web server is running:
+C:\Users\me\projectdir>netstat -ano | findstr :3000
+  TCP    0.0.0.0:3000           0.0.0.0:0              LISTENING       number
+  TCP    127.0.0.1:3000         127.0.0.1:53856        TIME_WAIT       0
+  TCP    127.0.0.1:3000         127.0.0.1:53857        TIME_WAIT       0
+  TCP    127.0.0.1:3000         127.0.0.1:53858        TIME_WAIT       0
+
+C:\Users\me\projectdir>taskkill /PID number /F
+SUCCESS: The process with PID 18172 has been terminated.
+
+C:\Users\me\projectdir>netstat -ano | findstr :3000
